@@ -1,0 +1,14 @@
+// Publicación en Cloudflare Workers (proyecto pedidos-enfermeria).
+// Cloudflare ejecuta `npm run build` y luego `npx wrangler deploy`. Solo archivos estáticos (carpeta dist).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pedidos-enfermeria",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": { "enabled": true },
+  // Necesario para las versiones de prueba de otras ramas (`npx wrangler preview`).
+  "previews": {}
+}
