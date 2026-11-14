@@ -1,0 +1,4 @@
+# La función valida ella misma la sesión y el rol admin (ver index.ts),
+# por eso no usa la verificación de JWT de la plataforma.
+[functions.admin-usuarias]
+verify_jwt = false
