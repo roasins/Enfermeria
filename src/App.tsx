@@ -4,7 +4,7 @@ import { Marco } from './componentes/Marco'
 import { BorradorProvider } from './contexto/Borrador'
 import { CatalogoProvider } from './contexto/Catalogo'
 import { useSesion } from './contexto/Sesion'
-import { configurado } from './lib/supabase'
+import { configurado, problemaConfig } from './lib/supabase'
 import { Catalogo } from './paginas/Catalogo'
 import { Cuenta } from './paginas/Cuenta'
 import { DetallePedido } from './paginas/DetallePedido'
@@ -34,7 +34,7 @@ export function App() {
   const sesion = useSesion()
 
   if (!configurado) {
-    return <Mensaje titulo="Falta configurar la app" texto="Define VITE_SUPABASE_URL y VITE_SUPABASE_PUBLISHABLE_KEY (ver DEPLOY.md) y vuelve a publicar." />
+    return <Mensaje titulo="Falta configurar la app" texto={`${problemaConfig} Corrígelo en Cloudflare (Configuración → Compilación → Variables) y vuelve a publicar.`} />
   }
   if (sesion.cargando) return <Cargando />
   if (!sesion.usuarioId) return <Login />

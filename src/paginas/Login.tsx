@@ -2,7 +2,7 @@ import { ClipboardPlus } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { ErrorCaja } from '../componentes/Basicos'
 import { mensajeError } from '../lib/formato'
-import { supabase } from '../lib/supabase'
+import { supabase, urlProyecto } from '../lib/supabase'
 
 export function Login() {
   const [correo, setCorreo] = useState('')
@@ -22,7 +22,9 @@ export function Login() {
           ? 'Correo o contraseña incorrectos.'
           : /banned/i.test(m)
             ? 'Tu cuenta está desactivada. Habla con la administradora.'
-            : mensajeError(error),
+            : /Failed to fetch|NetworkError|Load failed/i.test(m)
+              ? `No se pudo conectar con ${urlProyecto}. Si tu internet funciona, esa dirección de Supabase está mal escrita en la configuración.`
+              : mensajeError(error),
       )
       setEnviando(false)
     }
