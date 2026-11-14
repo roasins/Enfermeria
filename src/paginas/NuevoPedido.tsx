@@ -81,7 +81,7 @@ export function NuevoPedido() {
             autoComplete="off"
             autoCorrect="off"
             spellCheck={false}
-            placeholder="Buscar insumo por nombre o código"
+            placeholder="Buscar por nombre o código"
             aria-label="Buscar insumo por nombre o código"
             value={consulta}
             onChange={(e) => setConsulta(e.target.value)}
