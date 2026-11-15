@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Copy, Download, ListChecks } from 'lucide-react'
+import { ArrowLeft, Check, Copy, Download, ListChecks, Trash2 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router'
 import { Cargando, Codigo, ErrorCaja, Vacio } from '../componentes/Basicos'
@@ -30,6 +30,7 @@ export function DetallePedido() {
   const [numeroSap, setNumeroSap] = useState('')
   const [guardando, setGuardando] = useState(false)
   const [confirmarDuplicar, setConfirmarDuplicar] = useState(false)
+  const [confirmarBorrar, setConfirmarBorrar] = useState(false)
   const [ocupado, setOcupado] = useState(false)
 
   useEffect(() => {
@@ -76,6 +77,19 @@ export function DetallePedido() {
       fallar(e)
       setOcupado(false)
     }
+  }
+
+  const borrar = async () => {
+    setOcupado(true)
+    // Se pide la fila borrada de vuelta: si no vuelve, la base no permitió borrarla.
+    const { data, error } = await supabase.from('pedidos').delete().eq('id', pedido.id).select('id')
+    if (error || !data?.length) {
+      setOcupado(false)
+      setConfirmarBorrar(false)
+      return fallar(error ?? new Error('No se pudo borrar el pedido. Falta actualizar la base de datos (ver DEPLOY.md).'))
+    }
+    avisar('Pedido borrado')
+    navegar('/historial', { replace: true })
   }
 
   return (
@@ -153,6 +167,33 @@ export function DetallePedido() {
           </li>
         ))}
       </ul>
+
+      {esMio && (
+        <button type="button" className="mt-6 flex min-h-11 w-full items-center justify-center gap-2 text-sm font-semibold text-red-700" onClick={() => setConfirmarBorrar(true)}>
+          <Trash2 className="size-4" /> Borrar este pedido
+        </button>
+      )}
+
+      {confirmarBorrar && (
+        <Hoja titulo="¿Borrar este pedido?" onCerrar={() => !ocupado && setConfirmarBorrar(false)}>
+          <p className="text-slate-600">
+            Se borrará del historial y dejará de contar en tus sugerencias y estadísticas. Úsalo para pedidos cerrados por error. Esto no se puede deshacer.
+          </p>
+          {cargadas > 0 && (
+            <p className="mt-2 text-sm font-medium text-amber-700">
+              Ojo: este pedido tiene {cargadas} {cargadas === 1 ? 'línea marcada' : 'líneas marcadas'} como ingresada en SAP. Borrarlo aquí no lo borra de SAP.
+            </p>
+          )}
+          <div className="mt-5 flex gap-2">
+            <button type="button" className="btn-claro flex-1" onClick={() => setConfirmarBorrar(false)} disabled={ocupado}>
+              Volver
+            </button>
+            <button type="button" className="btn-peligro flex-1" onClick={borrar} disabled={ocupado}>
+              {ocupado ? 'Borrando…' : 'Sí, borrar'}
+            </button>
+          </div>
+        </Hoja>
+      )}
 
       {confirmarDuplicar && (
         <Hoja titulo="Ya tienes un pedido en curso" onCerrar={() => !ocupado && setConfirmarDuplicar(false)}>

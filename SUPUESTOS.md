@@ -29,6 +29,8 @@ Decisiones que tomé donde el encargo no definía algo. Siempre elegí la opció
 - Las líneas se ordenan por nombre del insumo, igual en pantalla, Excel y modo SAP. La posición (10, 20, 30…) sigue ese orden.
 - Al tocar un insumo que ya está en el pedido, la cantidad que se escribe reemplaza a la anterior (no se suma).
 - Cantidades: enteros de 1 a 99.999.
+- Cada enfermera puede borrar sus propios pedidos cerrados (por ejemplo, uno cerrado por error), con confirmación.
+  Al borrarlo deja de contar en sugerencias y estadísticas. La admin no borra pedidos de otras.
 - No se puede cerrar un pedido vacío. El borrador se puede vaciar completo.
 - Nota del pedido: se escribe antes de cerrar. Después de cerrar solo se puede guardar el número de pedido SAP.
 - "Repetir último pedido" y "Duplicar" no copian insumos desactivados (avisa cuántos quedaron fuera).

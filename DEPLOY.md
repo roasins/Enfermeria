@@ -9,6 +9,10 @@ Todo esto se hace una sola vez. Usa **solo el proyecto Supabase de enfermería**
 2. Pega el contenido completo de `supabase/instalar.sql` y aprieta **Run**.
    (Crea las tablas, los permisos y carga los 220 insumos. Es lo mismo que las migraciones de `supabase/migrations/`.)
 
+### Actualizaciones de la base de datos
+Si la base ya estaba instalada y se agrega un archivo nuevo en `supabase/migrations/`, pega solo ese archivo en el
+SQL Editor y aprieta Run. Hasta ahora: `20261115000001_borrar_pedidos.sql` (permite borrar pedidos cerrados).
+
 ## 2. Supabase: cuenta admin
 La cuenta de la admin ya existe en Authentication → Users. Falta marcarla como admin en la app.
 En **SQL Editor**, cambia el correo y el nombre y aprieta Run:
