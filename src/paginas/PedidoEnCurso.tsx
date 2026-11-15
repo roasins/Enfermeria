@@ -7,13 +7,10 @@ import { Hoja } from '../componentes/Hoja'
 import { useAvisos } from '../contexto/Avisos'
 import { useBorrador } from '../contexto/Borrador'
 import { useCatalogo } from '../contexto/Catalogo'
-import { usePerfil } from '../contexto/Sesion'
-import { descargarExcel } from '../lib/excel'
 import { lineasDePedido } from '../lib/lineas'
 import type { Insumo } from '../lib/tipos'
 
 export function PedidoEnCurso() {
-  const perfil = usePerfil()
   const catalogo = useCatalogo()
   const borrador = useBorrador()
   const { avisar, fallar } = useAvisos()
@@ -36,8 +33,6 @@ export function PedidoEnCurso() {
     setOcupado(true)
     try {
       const cerrado = await borrador.cerrar()
-      // Descarga el Excel de inmediato; también queda disponible en el detalle y en el historial.
-      descargarExcel({ lineas, solicitante: perfil.nombre, fecha: cerrado.cerrado_en!, nota: cerrado.nota }).catch(() => {})
       avisar('Pedido cerrado')
       navegar(`/historial/${cerrado.id}`, { replace: true, state: { recienCerrado: true } })
     } catch (e) {
@@ -150,7 +145,7 @@ export function PedidoEnCurso() {
       {confirmar === 'cerrar' && (
         <Hoja titulo="¿Cerrar el pedido?" onCerrar={() => !ocupado && setConfirmar(null)}>
           <p className="text-slate-600">
-            Son {lineas.length} {lineas.length === 1 ? 'línea' : 'líneas'}. Un pedido cerrado ya no se edita (se puede duplicar). Se descargará el Excel.
+            Son {lineas.length} {lineas.length === 1 ? 'línea' : 'líneas'}. Un pedido cerrado ya no se edita (se puede duplicar). Después podrás descargar el Excel.
           </p>
           {pendientes > 0 && <p className="mt-2 text-sm font-medium text-amber-700">{pendientes} {pendientes === 1 ? 'insumo va' : 'insumos van'} con CÓDIGO PENDIENTE.</p>}
           <div className="mt-5 flex gap-2">

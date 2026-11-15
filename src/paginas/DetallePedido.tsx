@@ -89,7 +89,7 @@ export function DetallePedido() {
           <p className="flex items-center gap-2 font-bold text-teal-900">
             <Check className="size-5" /> Pedido cerrado
           </p>
-          <p className="mt-1 text-sm text-teal-900/80">El Excel se descarga solo; si no apareció, usa el botón de abajo. Cuando estés frente a SAP, abre el modo carga.</p>
+          <p className="mt-1 text-sm text-teal-900/80">Descarga el Excel con el botón de abajo cuando lo necesites. Cuando estés frente a SAP, abre el modo carga.</p>
         </div>
       )}
 

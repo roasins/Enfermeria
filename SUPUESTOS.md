@@ -34,7 +34,8 @@ Decisiones que tomé donde el encargo no definía algo. Siempre elegí la opció
 - "Repetir último pedido" y "Duplicar" no copian insumos desactivados (avisa cuántos quedaron fuera).
 - "Repetir último pedido" agrega lo que falte y respeta las cantidades que ya estén en el pedido en curso.
   "Duplicar", si ya hay un pedido en curso, pregunta si reemplazarlo o sumar lo que falte.
-- Al cerrar, el Excel se descarga solo; además queda el botón en el detalle y en el historial.
+- Al cerrar no se descarga nada automáticamente (a pedido de Carlos): el Excel se baja con el botón "Excel" del
+  pedido cerrado, que también está en el historial.
 
 ## Sugerencias y estadísticas
 - "Lo que sueles pedir": hasta 20 insumos, ordenados por en cuántos de los últimos 6 pedidos cerrados aparecen.
