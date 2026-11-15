@@ -17,7 +17,9 @@ de pacientes.
   y volver a juntar `instalar.sql` (`cat supabase/migrations/*.sql > supabase/instalar.sql`).
 - `supabase/functions/admin-usuarias/` — Edge Function (service role) para crear y desactivar cuentas.
 - `scripts/seed-admin.mjs` — crea la primera admin (lee `ADMIN_EMAIL`).
-- `public/sw.js` — service worker. **Al publicar cambios grandes, subir `VERSION`** (`pedidos-v1` → `v2`).
+- `public/sw.js` — service worker (permite instalar la app).
+- Actualizaciones: cada compilación genera `version.json`; la app lo revisa (`src/lib/version.ts`) y muestra la franja
+  "Hay una versión nueva" con el botón Actualizar. También está en Mi cuenta → Buscar actualización.
 
 ## Comandos
 `npm run dev` · `npm test` · `npm run build` (debe pasar sin errores antes de publicar)
